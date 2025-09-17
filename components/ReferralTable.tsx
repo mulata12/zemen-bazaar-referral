@@ -1,54 +1,57 @@
-'use client'
-
-import React from 'react'
-
-type Referral = {
-  id: number
-  name: string
-  role: string
-  status: string
-  reward: string
+interface Referral {
+  id: number;
+  name: string;
+  role: string;
+  status: string;
+  reward: string;
 }
 
-export default function ReferralTable({ items }: { items: Referral[] }) {
-  if (!items || items.length === 0) {
-    return (
-      <div className="border rounded p-4 text-gray-500 text-sm">
-        No referrals yet. Share your code to invite friends!
-      </div>
-    )
-  }
+interface ReferralTableProps {
+  referrals: Referral[];
+}
 
+export default function ReferralTable({ referrals }: ReferralTableProps) {
   return (
-    <div className="border rounded-md overflow-hidden">
-      <table className="w-full text-left text-sm">
-        <thead className="bg-gray-50 text-gray-600">
+    <div className="overflow-x-auto">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
           <tr>
-            <th className="p-3">Referee</th>
-            <th className="p-3">Role</th>
-            <th className="p-3">Status</th>
-            <th className="p-3">Reward</th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Referee
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Role
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Status
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Reward
+            </th>
           </tr>
         </thead>
-        <tbody>
-          {items.map((i, idx) => (
-            <tr key={i.id ?? idx} className="border-t hover:bg-gray-50">
-              <td className="p-3">{i.name}</td>
-              <td className="p-3">{i.role}</td>
-              <td
-                className={`p-3 capitalize ${
-                  i.status.toLowerCase() === 'completed'
-                    ? 'text-green-600'
-                    : 'text-yellow-600'
-                }`}
-              >
-                {i.status}
+        <tbody className="bg-white divide-y divide-gray-200">
+          {referrals.map((referral) => (
+            <tr key={referral.id}>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm font-medium text-gray-900">{referral.name}</div>
               </td>
-              <td className="p-3">{i.reward}</td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm text-gray-500">{referral.role}</div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                  ${referral.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-green-800'}`}>
+                  {referral.status}
+                </span>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {referral.reward}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )
+  );
 }
