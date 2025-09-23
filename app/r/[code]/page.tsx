@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 function isValidReferralCode(code: string): boolean {
-  return /^[A-Z0-9_-]{3,20}$/i.test(code);
+  return /^[A-Z0-9_-]{3,20}$/i.test(code);  
 }
 
 async function trackReferralClick(code: string, metadata: TrackingMetadata) {
@@ -66,3 +66,5 @@ async function trackReferralClick(code: string, metadata: TrackingMetadata) {
     // Don't throw error - tracking shouldn't break the redirect
   }
 }
+
+

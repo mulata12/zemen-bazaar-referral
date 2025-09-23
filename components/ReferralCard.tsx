@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import { TbHospital } from 'react-icons/tb';   
+
+
 
 interface ReferralCardProps {
   code: string;
@@ -73,5 +76,6 @@ export default function ReferralCard({ code, referrals, earned, pending }: Refer
     </div>
   );
 }
+
 
 
