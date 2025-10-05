@@ -1,3 +1,5 @@
+'use client';
+
 interface Referral {
   id: number;
   name: string;
@@ -11,6 +13,14 @@ interface ReferralTableProps {
 }
 
 export default function ReferralTable({ referrals }: ReferralTableProps) {
+  if (referrals.length === 0) {
+    return (
+      <div className="text-center py-8 bg-gray-50 rounded-lg">
+        <p className="text-gray-500">No referral history found.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
@@ -41,7 +51,7 @@ export default function ReferralTable({ referrals }: ReferralTableProps) {
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                  ${referral.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-green-800'}`}>
+                  ${referral.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
                   {referral.status}
                 </span>
               </td>

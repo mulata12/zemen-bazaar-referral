@@ -12,7 +12,6 @@ export default function UserSignIn() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    
     // For phone number, only allow numbers and limit to 9 digits
     if (name === "phoneNumber") {
       const numericValue = value.replace(/\D/g, '');
@@ -55,6 +54,15 @@ export default function UserSignIn() {
   return (
     <div className="min-h-screen flex bg-white">
       {/* Left side with image - covers full height */}
+      <button 
+        onClick={() => router.push('/')}
+        className="absolute top-4 left-4 z-10 flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium bg-white bg-opacity-90 px-4 py-2 rounded-lg shadow-md transition-colors"
+      >
+        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Homepage
+      </button>
       <div className="hidden md:flex w-1/2 bg-gray-100 relative">
         <img 
           src="/image1.jpg" 

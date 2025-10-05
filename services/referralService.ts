@@ -10,7 +10,6 @@ export interface ReferralInfo {
 }
 
 // For server-side use (no environment variable prefix needed)
-
 export async function getReferralInfoServer(code: string): Promise<ReferralInfo> {
   const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001';
   
@@ -27,3 +26,4 @@ export async function getReferralInfoServer(code: string): Promise<ReferralInfo>
     return { isValid: false };
   }
 }
+

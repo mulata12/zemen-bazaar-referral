@@ -24,22 +24,7 @@ export default function HowItWorks() {
         </li>
       </ul>
       
-      <div className="mt-6 pt-6 border-t border-gray-200">
-        <h3 className="text-lg font-medium text-gray-900 mb-2">Rewards</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-blue-50 p-3 rounded-lg">
-            <p className="text-sm font-medium text-blue-800">Users</p>
-            <p className="text-xs text-gray-600">10% off next purchase or 100 Birr wallet credit</p>
-          </div>
-          <div className="bg-green-50 p-3 rounded-lg">
-            <p className="text-sm font-medium text-green-800">Sellers</p>
-            <p className="text-xs text-gray-600">Reduced commission for first month</p>
-          </div>
-          <div className="bg-yellow-50 p-3 rounded-lg">
-            <p className="text-sm font-medium text-yellow-800">Delivery Agents</p>
-            <p className="text-xs text-gray-600">Bonus on first 10 deliveries</p>
-          </div>
-        </div>
+      <div className="mt-8 pt-8 border-t border-gray-200"> 
       </div>
     </div>
   );

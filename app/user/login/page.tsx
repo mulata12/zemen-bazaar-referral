@@ -96,6 +96,15 @@ export default function UserRegistration() {
   return (
     <div className="min-h-screen flex bg-white">
       {/* Left side with image - covers full height */}
+      <button 
+        onClick={() => router.push('/')}
+        className="absolute top-4 left-4 z-10 flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium bg-white bg-opacity-90 px-4 py-2 rounded-lg shadow-md transition-colors"
+      >
+        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Homepage
+      </button>
       <div className="hidden md:flex w-1/2 bg-gray-100 relative">
         <img 
           src="/image1.jpg" 
@@ -103,9 +112,7 @@ export default function UserRegistration() {
           className="absolute inset-0 w-full h-full object-cover"
           onError={(e) => {
             // Fallback if image fails to load
-            const target = e.target as HTMLImageElement;
-            target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='400' viewBox='0 0 500 400'%3E%3Crect width='500' height='400' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24' fill='%236B7280'%3EImage Preview%3C/text%3E%3C/svg%3E";
-          }}
+             }}
         />
       </div>
 
@@ -245,3 +252,6 @@ export default function UserRegistration() {
     </div>
   );
 }
+
+
+

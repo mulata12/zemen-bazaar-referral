@@ -3,7 +3,7 @@ import Navbar from "../components/navbar";
 
 export const metadata = {
   title: "Zemen Bazaar Referral MVP",
-  description: "Referral microservice MVP for User, Seller, Agent, Admin",
+  description: "Referral microservice MVP for ",
 };
 
 export default function RootLayout({
@@ -13,16 +13,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-white text-gray-900">
-        {/* Navbar with role-based Admin link */}
-        <Navbar />
+      <body className="min-h-screen bg-gray-50 text-gray-900">
+        {/* Navbar with higher z-index */}
+        <div className="relative z-50">
+          <Navbar />
+        </div>
 
-        {/* Main content */}
-        <main className="p-6">{children}</main>
+        {/* Main content with lower z-index */}
+        <main className="relative z-10">
+          {children}
+        </main>
       </body>
     </html>
   );
 }
+
+
+
+
 
 
 
