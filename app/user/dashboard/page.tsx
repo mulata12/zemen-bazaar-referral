@@ -31,10 +31,10 @@ export default function UserDashboardPage() {
   const router = useRouter();
 
   const handleLogout = () => {
-    // Clear any user data and redirect to login
+    // Clear any user data and redirect to homepage
     localStorage.removeItem('userLoggedIn');
     localStorage.removeItem('userEmail');
-    router.push('/user/login');
+    router.push('/');
   };
 
   useEffect(() => {
@@ -85,14 +85,14 @@ export default function UserDashboardPage() {
           <div>
             <h1 className="text-3xl font-bold text-gray-900">My Referral Program</h1>
             <p className="text-lg text-gray-600 mt-2">
-              Invite friends, sellers, or delivery agents and earn rewards.
+              Invite friends and earn rewards.
             </p>
           </div>
           <div className="flex flex-col space-y-2">
             {/* Logout Button - Above Show History */}
             <button 
               onClick={handleLogout}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -100,13 +100,13 @@ export default function UserDashboardPage() {
               <span>Logout</span>
             </button>
             
-            {/* Show History Button */}
+            {/* Show History Button - FIXED: Added text content */}
             <button 
               onClick={() => setShowHistory(!showHistory)}
               className={`px-6 py-3 rounded-lg transition font-medium ${
                 showHistory 
                   ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                  : 'bg-green-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-green-100 text-gray-700 hover:bg-green-200'
               }`}
             >
               {showHistory ? 'Hide History' : 'Show History'}

@@ -81,3 +81,5 @@ export default function FraudMonitoring({ fraudCases }: FraudMonitoringProps) {
     </div>
   );
 }
+
+

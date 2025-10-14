@@ -22,7 +22,7 @@ interface ProgramConfigurationProps {
 
 export default function ProgramConfiguration({ config, onUpdate }: ProgramConfigurationProps) {
   const [localConfig, setLocalConfig] = useState(config);
-
+  
   const handleSave = () => {
     onUpdate(localConfig);
     alert('Program configuration saved successfully!');

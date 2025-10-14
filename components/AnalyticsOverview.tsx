@@ -1,5 +1,4 @@
 // components/AnalyticsOverview.tsx
-//C:\Users\hp\zemen-referral\components\AnalyticsOverview.tsx
 'use client';
 
 interface AnalyticsData {
@@ -71,8 +70,8 @@ export default function AnalyticsOverview({ analytics }: AnalyticsOverviewProps)
           ))}
         </div>
         <div className="flex justify-between text-xs text-gray-500 mt-2">
-          <span>Jan</span>
-          <span>Dec</span>
+          <span>sep</span>
+          <span>oct</span>
         </div>
       </div>
 

@@ -65,3 +65,5 @@ export default function ReferralTable({ referrals }: ReferralTableProps) {
     </div>
   );
 }
+
+

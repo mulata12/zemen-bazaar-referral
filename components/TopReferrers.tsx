@@ -22,9 +22,9 @@ export default function TopReferrers({ referrers }: TopReferrersProps) {
           <div key={referrer.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
             <div className="flex items-center space-x-3">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
-                index === 0 ? 'bg-yellow-500' : 
-                index === 1 ? 'bg-gray-400' : 
-                index === 2 ? 'bg-orange-500' : 'bg-blue-500'
+                index === 0 ? 'bg-blue-500' : 
+                index === 1 ? 'bg-blue-500' : 
+                index === 2 ? 'bg-blue-500' : 'bg-blue-500'
               }`}>
                 {index + 1}
               </div>
