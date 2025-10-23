@@ -10,6 +10,7 @@ interface ProgramConfig {
   eligibility: string;
   minPurchase: number;
   expirationDays: number;
+  rewardreferrer:boolean;
   rewardBoth: boolean;
   maxReferrals: number;
   chainRewards: boolean;
@@ -114,6 +115,15 @@ export default function ProgramConfiguration({ config, onUpdate }: ProgramConfig
 
       {/* Checkboxes */}
       <div className="mt-6 space-y-4">
+        <label className="flex items-center">
+          <input
+            type="checkbox"
+            checked={localConfig.rewardreferrer}
+            onChange={(e) => setLocalConfig(prev => ({ ...prev, rewardreferrer: e.target.checked }))}
+            className="mr-2"
+          />
+          <span className="text-sm text-gray-700">Reward only referrer </span>
+        </label>
         <label className="flex items-center">
           <input
             type="checkbox"

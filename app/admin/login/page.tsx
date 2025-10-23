@@ -81,13 +81,13 @@ export default function AdminLoginPage() {
         <div className="absolute inset-0 bg-blue-900 bg-opacity-70 flex items-center justify-center">
           <div className="text-white text-center max-w-md px-8">
             <div className="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-2xl font-bold text-white">ZB</span>
+              <span className="text-1xl font-bold text-black">zemen bazaar</span>
             </div> 
             <h1 className="text-4xl font-bold mb-4">Zemen Bazaar</h1>
             <p className="text-xl mb-2">Admin Portal</p>
             <p className="text-blue-100 text-lg">Referral Program Management System</p>
             <div className="mt-6 p-4 bg-white bg-opacity-10 rounded-lg">
-              <p className="text-sm">Manage referrals, monitor performance, and configure rewards</p>
+              <p className="text-sm text-black">Manage referrals, monitor performance, and configure rewards</p>
             </div>
           </div>
         </div>

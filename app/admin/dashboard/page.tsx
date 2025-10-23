@@ -18,6 +18,7 @@ const mockAdminData = {
     eligibility: 'min_purchase',
     minPurchase: 100,
     expirationDays: 90,
+    rewardreferrer: true,
     rewardBoth: true,
     maxReferrals: 5,
     chainRewards: false

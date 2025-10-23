@@ -185,7 +185,7 @@ export default function ReferralCard({ code, referrals, earned, pending }: Refer
         <div className="text-center p-4 bg-yellow-50 rounded-lg">
           <p className="text-2xl font-bold text-yellow-700">{pending}</p>
           <p className="text-sm text-gray-600">Pending</p>
-        </div>
+        </div>-
       </div>
     </div>
   );

@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import api  from "@/lib/api";
+import axios from "axios";
 export default function UserRegistration() {
   const router = useRouter();
   const [formData, setFormData] = useState({
