@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+//import jwtDecode from 'jwt-decode'; 
 
 export default function UserSignIn() {
   const router = useRouter();
@@ -38,26 +39,64 @@ export default function UserSignIn() {
   };
  
   const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    // Validate phone number has exactly 9 digits
-    if (formData.phoneNumber.length !== 9) {
-      alert("Phone number must be 9 digits (e.g., 946901117)");
-      return;
-    }
+  // Validate phone number has exactly 9 digits
+  if (formData.phoneNumber.length !== 9) {
+    alert("Phone number must be 9 digits (e.g., 946901117)");
+    return;
+  }
 
-    // Sign in logic would go here
-    console.log("Sign in data:", formData);
-    
-    // Set role as "user"
-    await fetch("/api/auth/role", {
+  try {
+    const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000";
+
+    // Call login API
+    const res = await fetch(`${BACKEND_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ role: "user" }),
+      body: JSON.stringify({
+        phone: "+251" + formData.phoneNumber, // prepend country code
+        password: formData.password
+      }),
     });
 
+
+const data = await res.json();
+
+    if (!res.ok) {
+      // Show backend error message
+      throw new Error(data.message || "Login failed");
+    }
+    const userId=data.user_id;
+    console.log(userId);
+    const token = data.access_token;
+    console.log("Login successful, token:", token);
+    // Optionally store token or user info in localStorage/sessionStorage
+    if (token) {
+      localStorage.setItem("token", token);
+    }
+    if (userId) {
+      localStorage.setItem("userId", userId);
+    }
+
+    alert("Login successful! ✅");
+
+    // Clear form after successful login
+    setFormData({
+      phoneNumber: "",
+      password: "",
+      rememberMe: false
+    });
+
+    // Redirect to dashboard
     router.push("/user/dashboard");
-  };
+
+  } catch (error: any) {
+    console.error("Login error:", error);
+    alert("❌ " + error.message);
+  }
+};
+
 
   return (
     <div className="min-h-screen flex bg-white">
@@ -211,7 +250,3 @@ export default function UserSignIn() {
     </div>
   );
 }
-
-
-
-

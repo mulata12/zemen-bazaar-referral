@@ -25,7 +25,7 @@ export default function HomePage() {
                 href="/user/login"
                 className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors text-lg font-medium text-center"
               >
-                User Login
+                User SignUp
               </Link>
               <Link 
                 href="/admin/login"

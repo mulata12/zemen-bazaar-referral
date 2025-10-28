@@ -3,6 +3,7 @@
 interface Referral {
   id: number;
   name: string;
+  phone: string;
   role: string;
   status: string;
   reward: string;
@@ -30,6 +31,9 @@ export default function ReferralTable({ referrals }: ReferralTableProps) {
               Referee
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Phone Number
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Role
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -45,6 +49,9 @@ export default function ReferralTable({ referrals }: ReferralTableProps) {
             <tr key={referral.id}>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm font-medium text-gray-900">{referral.name}</div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm font-medium text-gray-900">{referral.phone}</div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-500">{referral.role}</div>
