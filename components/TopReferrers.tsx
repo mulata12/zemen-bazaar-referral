@@ -5,13 +5,11 @@ import { useEffect, useState } from 'react';
 interface TopReferrer {
   id: number;
   fullname: string;
-  totalreferrals: string; // match backend exactly
+  totalreferrals: string; 
 }
-
 export default function TopReferrers() {
   const [referrers, setReferrers] = useState<TopReferrer[]>([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     async function fetchTopReferrers() {
       setLoading(true);
@@ -45,7 +43,6 @@ export default function TopReferrers() {
       </div>
     );
   }
-
   if (referrers.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-lg p-6 text-center text-gray-500">
@@ -53,7 +50,6 @@ export default function TopReferrers() {
       </div>
     );
   }
-
   return (
     <div className="bg-white rounded-lg shadow-lg p-15">
       <h3 className="text-lg text-black font-semibold mb-4">🏆 Top Referrers</h3>

@@ -112,7 +112,6 @@ export default function ProgramConfiguration({ config, onUpdate }: ProgramConfig
             className="w-full px-3 py-2 border border-gray-300 rounded-lg"
           />
         </div>
-
         {/* Eligibility Rules */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Eligibility Rules</label>
@@ -128,7 +127,6 @@ export default function ProgramConfiguration({ config, onUpdate }: ProgramConfig
             <option value="min_purchase">Minimum Purchase Required</option>
           </select>
         </div>
-
         {/* Minimum Purchase */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -142,7 +140,6 @@ export default function ProgramConfiguration({ config, onUpdate }: ProgramConfig
             className="w-full px-3 py-2 border border-gray-300 rounded-lg"
           />
         </div>
-
         {/* Expiration */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Expiration (Days)</label>
@@ -154,7 +151,6 @@ export default function ProgramConfiguration({ config, onUpdate }: ProgramConfig
             className="w-full px-3 py-2 border border-gray-300 rounded-lg"
           />
         </div>
-
         {/* Max Referrals */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Max Referrals Per User</label>
@@ -167,7 +163,6 @@ export default function ProgramConfiguration({ config, onUpdate }: ProgramConfig
           />
         </div>
       </div>
-
       {/* Checkboxes */}
       <div className="mt-6 space-y-4">
         <label className="flex items-center">
@@ -179,7 +174,6 @@ export default function ProgramConfiguration({ config, onUpdate }: ProgramConfig
           />
           <span className="text-sm text-gray-700">Reward Referrer</span>
         </label>
-
         <label className="flex items-center">
           <input
             type="checkbox"
@@ -190,7 +184,6 @@ export default function ProgramConfiguration({ config, onUpdate }: ProgramConfig
           <span className="text-sm text-gray-700">Enable Referral Chain Rewards</span>
         </label>
       </div>
-
       {/* Save Button */}
       <div className="mt-6">
         <button

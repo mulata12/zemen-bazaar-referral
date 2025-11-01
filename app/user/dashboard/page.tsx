@@ -14,7 +14,6 @@ interface ReferralItem {
   status: string;
   reward: string;
 }
-
 interface ReferralData {
   code: string;
   referrals: number;
@@ -23,43 +22,32 @@ interface ReferralData {
   referralsList: ReferralItem[];
   maxReferrals: number;
 }
-
 export default function UserDashboardPage() {
   const [referralData, setReferralData] = useState<ReferralData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showHistory, setShowHistory] = useState(false);
   const router = useRouter();
-
   const handleLogout = () => {
     localStorage.removeItem('userLoggedIn');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userId');
     router.push('/');
   };
-
   useEffect(() => {
     const fetchReferralData = async () => {
       try {
         setIsLoading(true);
-
         const userId = localStorage.getItem('userId');
         if (!userId) throw new Error('User not logged in');
-
-        // Fetch both dashboard and history in parallel
         const [dashboardRes, historyRes] = await Promise.all([
           fetch(`http://localhost:4000/referrals/dashboard/${userId}`),
           fetch(`http://localhost:4000/referrals/history/${userId}`)
         ]);
-
         if (!dashboardRes.ok || !historyRes.ok) throw new Error('Failed to fetch referral data');
-
         const dashboardJson = await dashboardRes.json();
         const historyJson = await historyRes.json();
-
         console.log('📊 Dashboard:', dashboardJson);
         console.log('📜 History:', historyJson);
-
-        // Normalize history data to match frontend ReferralTable structure
         const historyNormalized = (historyJson || []).map((item: any, index: number) => ({
           id: index + 1,
           name: item["Referee"] || 'Unknown',
@@ -68,8 +56,6 @@ export default function UserDashboardPage() {
           status: item["Status"] || 'Pending',
           reward: `${item["Reward"] ?? 0} Birr`,
         }));
-
-        // Then use it inside mappedData
         const mappedData: ReferralData = {
           code: dashboardJson.referralCode || '',
           referrals: dashboardJson.referralsCount || 0,
@@ -78,9 +64,7 @@ export default function UserDashboardPage() {
           referralsList: historyNormalized,
           maxReferrals: dashboardJson.maxReferrals || 5,
         };
-
-
-        setReferralData(mappedData);
+ setReferralData(mappedData);
       } catch (error) {
         console.error('Error fetching referral data:', error);
         setReferralData(null);
@@ -88,11 +72,8 @@ export default function UserDashboardPage() {
         setIsLoading(false);
       }
     };
-
     fetchReferralData();
   }, []);
-
-  // Loading State
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -103,8 +84,6 @@ export default function UserDashboardPage() {
       </div>
     );
   }
-
-  // Error State
   if (!referralData) {
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-600">
@@ -112,8 +91,6 @@ export default function UserDashboardPage() {
       </div>
     );
   }
-
-  //  Render Page
   return (
     <div className="min-h-screen bg-gray-50 pt-4 relative">
       {/* Back to homepage button */}
@@ -126,7 +103,6 @@ export default function UserDashboardPage() {
         </svg>
         Back to Homepage
       </button>
-
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-8 pt-12">
@@ -134,7 +110,6 @@ export default function UserDashboardPage() {
             <h1 className="text-3xl font-bold text-gray-900">My Referral Program</h1>
             <p className="text-lg text-gray-600 mt-2">Invite friends and earn rewards.</p>
           </div>
-
           <div className="flex flex-col space-y-2">
             <button
               onClick={handleLogout}
@@ -142,7 +117,6 @@ export default function UserDashboardPage() {
             >
               Logout
             </button>
-
             <button
               onClick={() => setShowHistory(!showHistory)}
               className={`px-6 py-3 rounded-lg transition font-medium ${
@@ -155,7 +129,6 @@ export default function UserDashboardPage() {
             </button>
           </div>
         </div>
-
         {/* Referral History */}
         {showHistory && (
           <div className="mb-8 bg-white rounded-lg shadow-lg p-6">
@@ -171,7 +144,6 @@ export default function UserDashboardPage() {
             <ReferralTable referrals={referralData.referralsList} />
           </div>
         )}
-
         {/* Referral Stats */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">

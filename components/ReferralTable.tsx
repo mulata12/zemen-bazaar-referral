@@ -8,11 +8,9 @@ interface Referral {
   status: string;
   reward: string;
 }
-
 interface ReferralTableProps {
   referrals: Referral[];
 }
-
 export default function ReferralTable({ referrals }: ReferralTableProps) {
   if (referrals.length === 0) {
     return (
@@ -21,7 +19,6 @@ export default function ReferralTable({ referrals }: ReferralTableProps) {
       </div>
     );
   }
-
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">

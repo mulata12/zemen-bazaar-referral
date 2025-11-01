@@ -1,7 +1,5 @@
 'use client';
-
 import { useState, useEffect } from "react";
-
 interface Referral {
   id: string;
   referrer: { 
@@ -16,30 +14,27 @@ interface Referral {
   };
   createdAt: string;
 }
-
-export default function ReferralTracking() {
+interface ReferralTrackingProps {
+  referrals: Referral[];  
+}
+export default function ReferralTracking({}: ReferralTrackingProps) {
   const [referrals, setReferrals] = useState<Referral[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
   useEffect(() => {
     const fetchReferrals = async () => {
       try {
         setLoading(true);
         setError('');
-
         const token = localStorage.getItem('adminToken');
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-
         const res = await fetch(`${apiUrl}/admin/referrals`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
         if (!res.ok) {
           throw new Error('Failed to fetch referrals');
         }
-
         const data = await res.json();
         setReferrals(data);
       } catch (err: any) {
@@ -49,15 +44,12 @@ export default function ReferralTracking() {
         setLoading(false);
       }
     };
-
     fetchReferrals();
   }, []);
-
   const filteredReferrals = referrals.filter(ref =>
       (ref.referrer?.name ?? '').toLowerCase().includes(searchTerm.toLowerCase()) ||
       (ref.referee?.name ?? '').toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case 'active': return 'bg-green-100 text-green-800';
@@ -65,12 +57,10 @@ export default function ReferralTracking() {
       default: return 'bg-gray-100 text-gray-800';
     }
   };
-
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
       {/* Header */}
       <h3 className="text-xl font-semibold text mb-4">🔍 Referral Tracking</h3>
-
       {/* Search input centered */}
       <div className="flex justify-center mb-6">
         <input
@@ -81,7 +71,6 @@ export default function ReferralTracking() {
           className="px-3 py-2 border border-gray-300 rounded-lg w-64"
         />
       </div>
-
       {/* Loading/Error */}
       {loading ? (
         <div className="text-center py-10 text-gray-500">Loading referrals...</div>
@@ -127,7 +116,6 @@ export default function ReferralTracking() {
               ))}
             </tbody>
           </table>
-
           {filteredReferrals.length === 0 && (
             <div className="text-center py-4 text-gray-500">No referrals found.</div>
           )}

@@ -9,20 +9,15 @@ export default function AdminLoginPage() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
     if (!email || !password) {
       setError('Please enter both email and password');
       return;
     }
-
     setIsLoading(true);
-
     try {
       const response = await fetch("http://localhost:4000/auth/admin-login", {
         method: "POST",
@@ -36,24 +31,16 @@ export default function AdminLoginPage() {
         setError(errData.message || "Login failed");
         return;
       }
-
       const data = await response.json();
-
      if (!data?.token || !data?.user) {
         setError("Invalid server response");
         return;
       }
-
-      // Store token and user info
       localStorage.setItem("adminToken", data.token);
       localStorage.setItem("adminEmail", data.user.email);
       localStorage.setItem("adminRole", data.user.role);
-
       console.log("Login successful:", data);
-
-      // Redirect to dashboard
       router.push("/admin/dashboard");
-
     } catch (err) {
       console.error(err);
       setError("Unable to reach server. Try again later.");
@@ -62,7 +49,6 @@ export default function AdminLoginPage() {
       setIsLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen flex bg-white">
       {/* Back to Homepage Button */}
@@ -75,7 +61,6 @@ export default function AdminLoginPage() {
         </svg>
         Back to Homepage
       </button>
-
       {/* Left side */}
       <div className="hidden md:flex w-1/2 bg-gray-100 relative">
         <img src="/image1.jpg" alt="Admin Portal Visual" className="absolute inset-0 w-full h-full object-cover"
@@ -94,22 +79,19 @@ export default function AdminLoginPage() {
           </div>
         </div>
       </div>
-
-      {/* Right side with login form */}
+      {/* Right side */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-4 md:p-8 overflow-y-auto">
         <div className="w-full max-w-md">
           <div className="mb-6 text-center">
             <h1 className="text-3xl font-bold text-blue-800">Admin Login</h1>
             <p className="text-gray-600 mt-2">Access the referral program management system</p>
           </div>
-
           {/* Error Message */}
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-red-800 text-sm text-center">{error}</p>
             </div>
           )}
-
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
@@ -123,7 +105,6 @@ export default function AdminLoginPage() {
                 disabled={isLoading}
               />
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
               <div className="relative">
@@ -158,7 +139,6 @@ export default function AdminLoginPage() {
                 </button>
               </div>
             </div>
-
             <button
               type="submit"
               disabled={isLoading}
@@ -174,9 +154,12 @@ export default function AdminLoginPage() {
               )}
             </button>
           </form>
-
-          {/* Mobile branding */}
-          
+          {/* Mobile branding */}          
+          <div className="mt-8 block lg:hidden">
+            <p className="text-center text-sm text-gray-600">
+              &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </div>
