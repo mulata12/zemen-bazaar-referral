@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; 
 
 export default function UserSignIn() {
   const router = useRouter();
@@ -9,17 +9,12 @@ export default function UserSignIn() {
     password: "",
     rememberMe: false
   });
-
-  // Add show/hide state for password
   const [showPassword, setShowPassword] = useState(false);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    // For phone number, only allow numbers and limit to 9 digits
     if (name === "phoneNumber") {
       const numericValue = value.replace(/\D/g, '');
-      const limitedValue = numericValue.slice(0, 9);
-      
+      const limitedValue = numericValue.slice(0, 9);      
       setFormData(prev => ({
         ...prev,
         [name]: limitedValue
@@ -32,36 +27,54 @@ export default function UserSignIn() {
     }
   };
 
-  // Toggle function for password visibility
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
- 
   const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Validate phone number has exactly 9 digits
-    if (formData.phoneNumber.length !== 9) {
-      alert("Phone number must be 9 digits (e.g., 946901117)");
-      return;
-    }
-
-    // Sign in logic would go here
-    console.log("Sign in data:", formData);
-    
-    // Set role as "user"
-    await fetch("/api/auth/role", {
+  e.preventDefault();
+  if (formData.phoneNumber.length !== 9) {
+    alert("Phone number must be 9 digits (e.g., 946901117)");
+    return;
+  }
+  try {
+    const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000";
+    const res = await fetch(`${BACKEND_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ role: "user" }),
+      body: JSON.stringify({
+        phone: "+251" + formData.phoneNumber, // prepend country code
+        password: formData.password
+      }),
     });
-
+const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message || "Login failed");
+    }
+    const userId=data.user_id;
+    console.log(userId);
+    const token = data.access_token;
+    console.log("Login successful, token:", token);
+    if (token) {
+      localStorage.setItem("token", token);
+    }
+    if (userId) {
+      localStorage.setItem("userId", userId);
+    }
+    alert("Login successful! ");
+    setFormData({
+      phoneNumber: "",
+      password: "",
+      rememberMe: false
+    });
     router.push("/user/dashboard");
-  };
-
+  } catch (error: any) {
+    console.error("Login error:", error);
+    alert("❌ " + error.message);
+  }
+};
   return (
     <div className="min-h-screen flex bg-white">
-      {/* Left side with image - covers full height */}
+      {/* Left side with image */}
       <button 
         onClick={() => router.push('/')}
         className="absolute top-4 left-4 z-10 flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium bg-white bg-opacity-90 px-4 py-2 rounded-lg shadow-md transition-colors"
@@ -83,7 +96,6 @@ export default function UserSignIn() {
           }}
         />
       </div>
-
       {/* Right side with form */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-4 md:p-8 overflow-y-auto">
         <div className="w-full max-w-md">
@@ -93,12 +105,10 @@ export default function UserSignIn() {
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">Infinite possibilities!</h2>
             <p className="text-gray-600 italic">buy here, sell here at zemen bazaar</p>
           </div>
-
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Welcome Back</h2>
             <p className="text-gray-600">Sign in to access your account</p>
-          </div>
-          
+          </div>          
           <form className="space-y-6" onSubmit={handleSignIn}>
             {/* Phone Number */}
             <div>
@@ -117,10 +127,8 @@ export default function UserSignIn() {
                   required
                   maxLength={9}
                 />
-              </div>
-              
+              </div>              
             </div>
-
             {/* Password Field with Show/Hide */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
@@ -141,13 +149,11 @@ export default function UserSignIn() {
                   aria-label={showPassword ? "" : ""}
                 >
                   {showPassword ? (
-                    // Eye with slash icon (hide)
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
                         d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
                     </svg>
                   ) : (
-                    // Eye icon (show)
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -161,8 +167,7 @@ export default function UserSignIn() {
                 {showPassword ? "" : ""}
               </p>
             </div>
-
-            {/* Remember me and Forgot password */}
+            {/*  */}
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
@@ -176,13 +181,11 @@ export default function UserSignIn() {
                 <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700">
                   Remember me
                 </label>
-              </div>
-              
+              </div>              
               <a href="#" className="text-sm text-blue-600 hover:text-blue-500">
                 Forgot password?
               </a>
             </div>
-
             {/* Sign In button */}
             <button
               type="submit"
@@ -191,7 +194,6 @@ export default function UserSignIn() {
               Sign In
             </button>
           </form>
-
           {/* Sign up link */}
           <p className="mt-6 text-center text-sm text-gray-600">
             Don't have an account?{" "}

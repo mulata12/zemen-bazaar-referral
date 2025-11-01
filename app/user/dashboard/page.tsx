@@ -6,55 +6,74 @@ import ReferralCard from '@/components/ReferralCard';
 import HowItWorks from '@/components/HowItWorks';
 import ReferralTable from '@/components/ReferralTable';
 
-// Mock data
-const mockReferralData = {
-  code: 'ZEMEN-USER-A7X58R',
-  referrals: 1,
-  earned: 100,
-  pending: 4,
-  referralsList: [
-    { id: 1, name: 'Abebe', role: 'User', status: 'Completed', reward: '100 Birr' },
-    { id: 2, name: 'Sara', role: 'user', status: 'Pending', reward: '100 Birr' },
-    { id: 3, name: 'John', role: 'user', status: 'Pending', reward: '50 Birr' },
-  ]
-};
-
-function generateReferralCode() {
-  const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase();
-  return `ZEMEN-USER-${randomPart}`;
+interface ReferralItem {
+  id: number;
+  name: string;
+  phone: string;
+  role: string;
+  status: string;
+  reward: string;
 }
-
+interface ReferralData {
+  code: string;
+  referrals: number;
+  balance: number;
+  pending: number;
+  referralsList: ReferralItem[];
+  maxReferrals: number;
+}
 export default function UserDashboardPage() {
-  const [referralData, setReferralData] = useState(mockReferralData);
+  const [referralData, setReferralData] = useState<ReferralData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showHistory, setShowHistory] = useState(false);
   const router = useRouter();
-
   const handleLogout = () => {
-    // Clear any user data and redirect to homepage
     localStorage.removeItem('userLoggedIn');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('userId');
     router.push('/');
   };
-
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchReferralData = async () => {
       try {
         setIsLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setReferralData({
-          ...mockReferralData,
-          code: generateReferralCode()
-        });
+        const userId = localStorage.getItem('userId');
+        if (!userId) throw new Error('User not logged in');
+        const [dashboardRes, historyRes] = await Promise.all([
+          fetch(`http://localhost:4000/referrals/dashboard/${userId}`),
+          fetch(`http://localhost:4000/referrals/history/${userId}`)
+        ]);
+        if (!dashboardRes.ok || !historyRes.ok) throw new Error('Failed to fetch referral data');
+        const dashboardJson = await dashboardRes.json();
+        const historyJson = await historyRes.json();
+        console.log('📊 Dashboard:', dashboardJson);
+        console.log('📜 History:', historyJson);
+        const historyNormalized = (historyJson || []).map((item: any, index: number) => ({
+          id: index + 1,
+          name: item["Referee"] || 'Unknown',
+          phone: item["Phone Number"] || '-',
+          role: item["Role"] || '-',
+          status: item["Status"] || 'Pending',
+          reward: `${item["Reward"] ?? 0} Birr`,
+        }));
+        const mappedData: ReferralData = {
+          code: dashboardJson.referralCode || '',
+          referrals: dashboardJson.referralsCount || 0,
+          balance: dashboardJson.balance || 0,
+          pending: dashboardJson.pending || 0,
+          referralsList: historyNormalized,
+          maxReferrals: dashboardJson.maxReferrals || 5,
+        };
+ setReferralData(mappedData);
       } catch (error) {
-        console.error('Failed to fetch referral data:', error);
+        console.error('Error fetching referral data:', error);
+        setReferralData(null);
       } finally {
         setIsLoading(false);
       }
     };
-    fetchData();
+    fetchReferralData();
   }, []);
-
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -65,11 +84,17 @@ export default function UserDashboardPage() {
       </div>
     );
   }
-  
+  if (!referralData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-600">
+        Failed to load referral data.
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gray-50 pt-4 relative">
-      {/* Back to Homepage Button - Top Left */}
-      <button 
+      {/* Back to homepage button */}
+      <button
         onClick={() => router.push('/')}
         className="absolute top-4 left-4 z-10 flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium bg-white bg-opacity-90 px-4 py-2 rounded-lg shadow-md transition-colors"
       >
@@ -78,34 +103,25 @@ export default function UserDashboardPage() {
         </svg>
         Back to Homepage
       </button>
-
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header with History Button */}
-        <div className="flex justify-between items-center mb-8 pt-12"> {/* Added pt-12 to account for the back button */}
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8 pt-12">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">My Referral Program</h1>
-            <p className="text-lg text-gray-600 mt-2">
-              Invite friends and earn rewards.
-            </p>
+            <p className="text-lg text-gray-600 mt-2">Invite friends and earn rewards.</p>
           </div>
           <div className="flex flex-col space-y-2">
-            {/* Logout Button - Above Show History */}
-            <button 
+            <button
               onClick={handleLogout}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              <span>Logout</span>
+              Logout
             </button>
-            
-            {/* Show History Button - FIXED: Added text content */}
-            <button 
+            <button
               onClick={() => setShowHistory(!showHistory)}
               className={`px-6 py-3 rounded-lg transition font-medium ${
-                showHistory 
-                  ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                showHistory
+                  ? 'bg-blue-600 text-white hover:bg-blue-700'
                   : 'bg-green-100 text-gray-700 hover:bg-green-200'
               }`}
             >
@@ -113,12 +129,12 @@ export default function UserDashboardPage() {
             </button>
           </div>
         </div>
-
+        {/* Referral History */}
         {showHistory && (
           <div className="mb-8 bg-white rounded-lg shadow-lg p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-900">Referral History</h2>
-              <button 
+              <h2 className="text-xl font-bold text-gray-900">My Referrals</h2>
+              <button
                 onClick={() => setShowHistory(false)}
                 className="text-gray-500 hover:text-gray-700 font-bold"
               >
@@ -128,17 +144,17 @@ export default function UserDashboardPage() {
             <ReferralTable referrals={referralData.referralsList} />
           </div>
         )}
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Referral Stats */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
-            <ReferralCard 
+            <ReferralCard
               code={referralData.code}
               referrals={referralData.referrals}
-              earned={referralData.earned}
+              balance={referralData.balance}
               pending={referralData.pending}
+              maxReferrals={referralData.maxReferrals}
             />
           </div>
-          
           <div>
             <HowItWorks />
           </div>

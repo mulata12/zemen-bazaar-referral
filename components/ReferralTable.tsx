@@ -3,15 +3,14 @@
 interface Referral {
   id: number;
   name: string;
+  phone: string;
   role: string;
   status: string;
   reward: string;
 }
-
 interface ReferralTableProps {
   referrals: Referral[];
 }
-
 export default function ReferralTable({ referrals }: ReferralTableProps) {
   if (referrals.length === 0) {
     return (
@@ -20,7 +19,6 @@ export default function ReferralTable({ referrals }: ReferralTableProps) {
       </div>
     );
   }
-
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
@@ -28,6 +26,9 @@ export default function ReferralTable({ referrals }: ReferralTableProps) {
           <tr>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Referee
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Phone Number
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Role
@@ -45,6 +46,9 @@ export default function ReferralTable({ referrals }: ReferralTableProps) {
             <tr key={referral.id}>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm font-medium text-gray-900">{referral.name}</div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm font-medium text-gray-900">{referral.phone}</div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-500">{referral.role}</div>

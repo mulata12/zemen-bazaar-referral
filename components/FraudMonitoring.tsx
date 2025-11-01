@@ -13,7 +13,6 @@ interface FraudCase {
 interface FraudMonitoringProps {
   fraudCases: FraudCase[];
 }
-
 export default function FraudMonitoring({ fraudCases }: FraudMonitoringProps) {
   const getSeverityColor = (severity: string) => {
     switch (severity) {
@@ -23,7 +22,6 @@ export default function FraudMonitoring({ fraudCases }: FraudMonitoringProps) {
       default: return 'bg-gray-100 text-gray-800';
     }
   };
-
   const getReasonText = (reason: string) => {
     switch (reason) {
       case 'multiple_accounts': return 'Multiple Accounts';
@@ -33,11 +31,9 @@ export default function FraudMonitoring({ fraudCases }: FraudMonitoringProps) {
       default: return reason;
     }
   };
-
   return (
     <div className="bg-white rounded-lg text-black shadow-lg p-6">
       <h3 className="text-xl font-semibold mb-6">🛡️ Fraud Monitoring</h3>
-
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">

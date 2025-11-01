@@ -1,8 +1,10 @@
-import type { NextConfig } from "next";
+// next.config.ts
+import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   experimental: {
-    allowedDevOrigins: ["http://192.168.137.170:3000"],
+    // Remove or comment out the old option
+    // allowedDevOrigins: ['http://localhost:3000'], 
   },
 };
 
