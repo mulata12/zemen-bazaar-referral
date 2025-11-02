@@ -1,4 +1,8 @@
 'use client';
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
 import { useState, useEffect } from "react";
 interface Referral {
   id: string;
@@ -71,6 +75,10 @@ export default function ReferralTracking({}: ReferralTrackingProps) {
           className="px-3 py-2 border border-gray-300 rounded-lg w-64"
         />
       </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
       {/* Loading/Error */}
       {loading ? (
         <div className="text-center py-10 text-gray-500">Loading referrals...</div>

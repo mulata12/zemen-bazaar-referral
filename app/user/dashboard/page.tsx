@@ -72,8 +72,7 @@ export default function UserDashboardPage() {
         setIsLoading(false);
       }
     };
-    fetchReferralData();
-  }, []);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -84,6 +83,7 @@ export default function UserDashboardPage() {
       </div>
     );
   }
+
   if (!referralData) {
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-600">
@@ -129,6 +129,10 @@ export default function UserDashboardPage() {
             </button>
           </div>
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
         {/* Referral History */}
         {showHistory && (
           <div className="mb-8 bg-white rounded-lg shadow-lg p-6">
@@ -144,6 +148,10 @@ export default function UserDashboardPage() {
             <ReferralTable referrals={referralData.referralsList} />
           </div>
         )}
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
         {/* Referral Stats */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">

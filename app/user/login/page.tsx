@@ -7,6 +7,10 @@ export default function UserRegistration() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const rCodeFromUrl = searchParams.get("rCode") || "";
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -106,15 +110,27 @@ export default function UserRegistration() {
       >
         Back to Homepage
       </button>
+<<<<<<< HEAD
       <div className="hidden md:flex w-1/2 bg-gray-100 relative">
         <img src="/image1.jpg" alt="Registration Visual" className="absolute inset-0 w-full h-full object-cover" />
       </div>
+=======
+
+      <div className="hidden md:flex w-1/2 bg-gray-100 relative">
+        <img src="/image1.jpg" alt="Registration Visual" className="absolute inset-0 w-full h-full object-cover" />
+      </div>
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
       <div className="w-full md:w-1/2 flex items-center justify-center p-4 md:p-8 overflow-y-auto">
         <div className="w-full max-w-md">
           <div className="mb-6 text-center">
             <h1 className="text-3xl font-bold text-blue-800">Create User Account</h1>
             <p className="text-gray-600 mt-2">Join us today and enjoy our services</p>
           </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
           <form className="space-y-4" onSubmit={handleRegister}>
             <div className="flex space-x-4">
               <div className="flex-1">

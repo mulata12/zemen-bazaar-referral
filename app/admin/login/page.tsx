@@ -10,14 +10,28 @@ export default function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
+<<<<<<< HEAD
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+=======
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
     if (!email || !password) {
       setError('Please enter both email and password');
       return;
     }
+<<<<<<< HEAD
     setIsLoading(true);
+=======
+
+    setIsLoading(true);
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
     try {
       const response = await fetch("http://localhost:4000/auth/admin-login", {
         method: "POST",
@@ -61,6 +75,10 @@ export default function AdminLoginPage() {
         </svg>
         Back to Homepage
       </button>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
       {/* Left side */}
       <div className="hidden md:flex w-1/2 bg-gray-100 relative">
         <img src="/image1.jpg" alt="Admin Portal Visual" className="absolute inset-0 w-full h-full object-cover"
@@ -86,6 +104,10 @@ export default function AdminLoginPage() {
             <h1 className="text-3xl font-bold text-blue-800">Admin Login</h1>
             <p className="text-gray-600 mt-2">Access the referral program management system</p>
           </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
           {/* Error Message */}
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -105,6 +127,10 @@ export default function AdminLoginPage() {
                 disabled={isLoading}
               />
             </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
               <div className="relative">
@@ -154,12 +180,18 @@ export default function AdminLoginPage() {
               )}
             </button>
           </form>
+<<<<<<< HEAD
           {/* Mobile branding */}          
           <div className="mt-8 block lg:hidden">
             <p className="text-center text-sm text-gray-600">
               &copy; {new Date().getFullYear()} Your Company. All rights reserved.
             </p>
           </div>
+=======
+
+          {/* Mobile branding */}
+          
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
         </div>
       </div>
     </div>

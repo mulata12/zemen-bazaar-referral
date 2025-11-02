@@ -80,14 +80,38 @@ export default function AnalyticsOverview() {
           <div className="text-2xl font-bold text-green-600">{analytics.totalReferrals}</div>
           <div className="text-sm text-gray-600">Total Referrals</div>
         </div>
+<<<<<<< HEAD
         {/* */}
+=======
+        {/* <div className="bg-yellow-50 p-4 rounded-lg">
+          <div className="text-2xl font-bold text-yellow-600">{analytics.pending}</div>
+          <div className="text-sm text-gray-600">Pending</div>
+        </div> */}
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
         <div className="bg-red-50 p-4 rounded-lg">
           <div className="text-2xl font-bold text-red-600">{analytics.fraud}</div>
           <div className="text-sm text-gray-600">Fraud Cases</div>
         </div>
       </div>
       {/* Success Rate */}
+<<<<<<< HEAD
       {}
+=======
+      {/* <div className="mb-6">
+        <div className="flex justify-between items-center mb-2">
+          <span className="font-medium">Success Rate</span>
+          <span className="font-bold text-green-600">{successRate}%</span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2">
+          <div
+            className="bg-green-600 h-2 rounded-full transition-all duration-300"
+            style={{ width: `${successRate}%` }}
+          ></div>
+        </div>
+      </div>
+
+      {/* Monthly Trend */}
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
       <div>
         <h4 className="font-medium mb-4">Monthly Referral Trend</h4>
         <div className="flex items-end space-x-1 h-32">
@@ -106,6 +130,10 @@ export default function AnalyticsOverview() {
           <span>Oct</span>
         </div>
       </div> 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
       {/* Rewards Summary */}
       <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
         <div className="text-center">

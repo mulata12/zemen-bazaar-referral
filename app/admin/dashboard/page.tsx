@@ -41,6 +41,10 @@ export default function AdminDashboardPage() {
         setIsLoading(false);
       }
     };
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
     fetchAdminData();
   }, [router]);
   const handleLogout = () => {
@@ -65,6 +69,10 @@ export default function AdminDashboardPage() {
       </div>
     );
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
   if (!role || role.toUpperCase() !== "ADMIN") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -79,6 +87,10 @@ export default function AdminDashboardPage() {
       </div>
     );
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}

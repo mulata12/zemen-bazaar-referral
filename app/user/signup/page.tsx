@@ -1,6 +1,11 @@
 "use client";
 import { useState } from "react";
+<<<<<<< HEAD
 import { useRouter } from "next/navigation"; 
+=======
+import { useRouter } from "next/navigation";
+//import jwtDecode from 'jwt-decode'; 
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
 
 export default function UserSignIn() {
   const router = useRouter();
@@ -72,6 +77,11 @@ const data = await res.json();
     alert("❌ " + error.message);
   }
 };
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
   return (
     <div className="min-h-screen flex bg-white">
       {/* Left side with image */}

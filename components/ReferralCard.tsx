@@ -23,6 +23,10 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
     return visiblePart + maskedPart;
   };
   const displayedCode = maskReferralCode(code);
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
   const toggleCodeVisibility = () => setShowCode(!showCode);
   const handleCopyCode = () => {
     if (isReferralLimitReached) {
@@ -50,6 +54,10 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
       alert('Link copied to clipboard!');
     }
   };
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
   const getRemainingColor = () => {
     const ratio = remainingReferrals / maxReferrals;
     if (ratio > 0.6) return 'text-green-600 bg-green-100';
@@ -80,12 +88,20 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
             ))}
           </div>
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
         {isReferralLimitReached && (
           <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded text-sm text-red-700">
             You've reached the maximum referral limit. No more referrals can be made.
           </div>
         )}
       </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
       {/* Code section */}
       <div className="flex items-center justify-between bg-gray-100 p-3 rounded-lg mb-6">
         <span className="font-mono text-lg text-blue-800">{displayedCode}</span>
@@ -136,6 +152,10 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
           >
             {copied ? 'Copied✅' : 'Copy Code'}
           </button>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
           <button
             onClick={handleShareLink}
             disabled={isReferralLimitReached}
@@ -149,6 +169,10 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
           </button>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
         <div className="text-center p-4 bg-blue-50 rounded-lg">
