@@ -8,41 +8,60 @@ interface ReferralCardProps {
   referrals: number;
   balance: number;
   pending: number;
-  maxReferrals: number; 
+  maxReferrals: number;
 }
-export default function ReferralCard({ code, referrals, balance, pending, maxReferrals }: ReferralCardProps) {
+
+export default function ReferralCard({
+  code,
+  referrals,
+  balance,
+  pending,
+  maxReferrals,
+}: ReferralCardProps) {
   const [copied, setCopied] = useState(false);
   const [showCode, setShowCode] = useState(false);
   const [, copy] = useCopyToClipboard();
+
   const remainingReferrals = Math.max(0, maxReferrals - referrals);
   const isReferralLimitReached = remainingReferrals <= 0;
+
   const maskReferralCode = (code: string) => {
     if (showCode) return code;
+
     const visiblePart = code.substring(0, 5);
     const maskedPart = '*'.repeat(Math.max(0, code.length - 5));
+
     return visiblePart + maskedPart;
   };
-  const displayedCode = maskReferralCode(code);
-<<<<<<< HEAD
-=======
 
->>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
+  const displayedCode = maskReferralCode(code);
+
   const toggleCodeVisibility = () => setShowCode(!showCode);
+
   const handleCopyCode = () => {
     if (isReferralLimitReached) {
-      alert(`You have reached the maximum number of referrals (${maxReferrals}).`);
+      alert(
+        `You have reached the maximum number of referrals (${maxReferrals}).`
+      );
       return;
     }
+
     copy(code);
     setCopied(true);
+
     setTimeout(() => setCopied(false), 2000);
   };
+
   const handleShareLink = () => {
     if (isReferralLimitReached) {
-      alert(`You have reached the maximum number of referrals (${maxReferrals}).`);
+      alert(
+        `You have reached the maximum number of referrals (${maxReferrals}).`
+      );
       return;
     }
+
     const shareUrl = `${window.location.origin}/user/login?rCode=${code}`;
+
     if (navigator.share) {
       navigator.share({
         title: 'Join Zemen Bazaar',
@@ -54,28 +73,37 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
       alert('Link copied to clipboard!');
     }
   };
-<<<<<<< HEAD
-=======
 
->>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
   const getRemainingColor = () => {
     const ratio = remainingReferrals / maxReferrals;
+
     if (ratio > 0.6) return 'text-green-600 bg-green-100';
     if (ratio > 0.3) return 'text-yellow-600 bg-yellow-100';
+
     return 'text-red-600 bg-red-100';
   };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-5">
-      <h2 className="text-lg font-medium text-gray-900 mb-4">Your referral code</h2>
+      <h2 className="text-lg font-medium text-gray-900 mb-4">
+        Your referral code
+      </h2>
+
       {/* Referrals Remaining */}
       <div className="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium text-gray-700">Referrals remaining:</span>
-            <span className={`px-2 py-1 rounded-full text-xs font-bold ${getRemainingColor()}`}>
+            <span className="text-sm font-medium text-gray-700">
+              Referrals remaining:
+            </span>
+
+            <span
+              className={`px-2 py-1 rounded-full text-xs font-bold ${getRemainingColor()}`}
+            >
               {remainingReferrals} / {maxReferrals}
             </span>
           </div>
+
           {/* Dynamic circles */}
           <div className="flex items-center space-x-1 overflow-x-auto">
             {Array.from({ length: maxReferrals }).map((_, index) => (
@@ -88,23 +116,21 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
             ))}
           </div>
         </div>
-<<<<<<< HEAD
-=======
 
->>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
         {isReferralLimitReached && (
           <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded text-sm text-red-700">
-            You've reached the maximum referral limit. No more referrals can be made.
+            You've reached the maximum referral limit. No more referrals can be
+            made.
           </div>
         )}
       </div>
-<<<<<<< HEAD
-=======
 
->>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
       {/* Code section */}
       <div className="flex items-center justify-between bg-gray-100 p-3 rounded-lg mb-6">
-        <span className="font-mono text-lg text-blue-800">{displayedCode}</span>
+        <span className="font-mono text-lg text-blue-800">
+          {displayedCode}
+        </span>
+
         <div className="flex space-x-2">
           <button
             onClick={toggleCodeVisibility}
@@ -116,22 +142,33 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
             disabled={isReferralLimitReached}
           >
             {showCode ? (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M3 3l3.59 3.59"
+                  d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59"
                 />
               </svg>
             ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
+
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -141,6 +178,7 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
               </svg>
             )}
           </button>
+
           <button
             onClick={handleCopyCode}
             disabled={isReferralLimitReached}
@@ -152,10 +190,7 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
           >
             {copied ? 'Copied✅' : 'Copy Code'}
           </button>
-<<<<<<< HEAD
-=======
 
->>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
           <button
             onClick={handleShareLink}
             disabled={isReferralLimitReached}
@@ -169,20 +204,21 @@ export default function ReferralCard({ code, referrals, balance, pending, maxRef
           </button>
         </div>
       </div>
-<<<<<<< HEAD
-=======
 
->>>>>>> c452477c4a5889fcaa40f47956fd6a34df2bec77
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
         <div className="text-center p-4 bg-blue-50 rounded-lg">
           <p className="text-2xl font-bold text-blue-700">{referrals}</p>
           <p className="text-sm text-gray-600">Referrals</p>
         </div>
+
         <div className="text-center p-4 bg-green-50 rounded-lg">
-          <p className="text-2xl font-bold text-green-700">{balance} Birr</p>
+          <p className="text-2xl font-bold text-green-700">
+            {balance} Birr
+          </p>
           <p className="text-sm text-gray-600">Balance</p>
         </div>
+
         <div className="text-center p-4 bg-yellow-50 rounded-lg">
           <p className="text-2xl font-bold text-yellow-700">{pending}</p>
           <p className="text-sm text-gray-600">Pending</p>
