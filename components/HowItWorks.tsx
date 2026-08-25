@@ -8,7 +8,7 @@ export default function HowItWorks() {
       <ul className="space-y-4">
         <li className="flex items-start">
           <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold mr-3">
-            1
+        
           </div>
           <p className="text-gray-600">
             Share your code with friends, sellers, or delivery agents
@@ -17,7 +17,7 @@ export default function HowItWorks() {
 
         <li className="flex items-start">
           <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold mr-3">
-            2
+            
           </div>
           <p className="text-gray-600">
             They sign up and complete their first action using your code
@@ -26,7 +26,7 @@ export default function HowItWorks() {
 
         <li className="flex items-start">
           <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold mr-3">
-            3
+            
           </div>
           <p className="text-gray-600">
             You both earn rewards once their action is completed
