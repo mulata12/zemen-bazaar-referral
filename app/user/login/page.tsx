@@ -1,9 +1,9 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-function UserRegistration() {
+function UserRegistrationForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -24,7 +24,6 @@ function UserRegistration() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showReferralCode, setShowReferralCode] = useState(false);
 
-  // Keep referral code synchronized with URL.
   useEffect(() => {
     if (rCodeFromUrl) {
       setFormData((prev) => ({
@@ -42,11 +41,11 @@ function UserRegistration() {
 
       setFormData((prev) => ({
         ...prev,
-        [name]: numericValue,
+        phoneNumber: numericValue,
       }));
 
       if (errors.phoneNumber) {
-        setErrors({ ...errors, phoneNumber: "" });
+        setErrors({ phoneNumber: "" });
       }
     } else if (name === "referralCode") {
       setFormData((prev) => ({
@@ -62,15 +61,15 @@ function UserRegistration() {
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
 
   const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
+    setShowConfirmPassword((prev) => !prev);
   };
 
   const toggleReferralCodeVisibility = () => {
-    setShowReferralCode(!showReferralCode);
+    setShowReferralCode((prev) => !prev);
   };
 
   const maskReferralCode = (code: string) => {
@@ -167,7 +166,7 @@ function UserRegistration() {
       router.push("/user/signup");
     } catch (error: any) {
       console.error("Registration error:", error);
-      alert(" " + error.message);
+      alert(error.message);
     }
   };
 
@@ -272,6 +271,7 @@ function UserRegistration() {
                   onChange={handleChange}
                   className="w-full border border-gray-300 px-3 py-2 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                   required
+                  maxLength={9}
                 />
               </div>
 
@@ -282,7 +282,7 @@ function UserRegistration() {
               )}
             </div>
 
-            {/* Password Fields */}
+            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Password
@@ -364,7 +364,7 @@ function UserRegistration() {
               </div>
             </div>
 
-            {/* Terms and Conditions */}
+            {/* Terms */}
             <div className="flex items-start">
               <input
                 type="checkbox"
